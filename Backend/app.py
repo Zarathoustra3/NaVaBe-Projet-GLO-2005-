@@ -1,5 +1,9 @@
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
+src = "PycharmProjects\GLO-2005-Project-\Frontends\index.html"
 @app.route("/")
 def home():
-    return "Bonjour, Ceci est un test du module flask"
+    return render_template(src)
+
+if __name__ == "__main__":
+    app.run()
