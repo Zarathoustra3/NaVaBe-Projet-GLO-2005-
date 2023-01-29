@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tableau de bord</title>
+    <link rel="stylesheet" href=" {{ url_for('static',filename = 'css/main_style.css') }} ">
+</head>
+<body>
+    <nav id="navigation-bar">
+        <img src="" alt="" width="50">
+        <ul id="navbar-items">
+            <li id="navbar-item login">
+                <a href=" {{url_for('login')}} "> Se connecter </a>
+            </li>
+            <li id="navbar-item signin">
+                <a href="{{url_for('sign_in')}}"> Créez un compte </a>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>
