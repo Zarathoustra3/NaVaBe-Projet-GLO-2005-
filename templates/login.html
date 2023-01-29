@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Connectez-vous</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for ('static', filename ='css/login_style.css')}}">
+    <title>Connexion NaVaBe</title>
 </head>
+
 <body>
-<h1>Page de connexion</h1>
+    <main>
+        <img class="logo" src="{{url_for('static',filename='img/logo_navabe.png')}}" alt="logo">
+        <form class ="form_container" id="Connexion" action="{{url_for('submit')}}" method="GET">
+            <p class="form_container_heading">Connexion</p>
+            <input id="email" class="form_container_inputs" type="email" placeholder="Votre identifiant" required>
+            <input id="password" class="form_container_inputs" type="password" placeholder="Votre mot de passe" required>
+            <input type="submit" class="form_container_button" value="Connexion">
+            <p>Vous n'avez pas de compte ? <a href="{{url_for('sign_in')}}">Créer un compte !</a></p>
+        </form>
+    </main>
 </body>
+
 </html>

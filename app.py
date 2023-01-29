@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -13,6 +13,9 @@ def login():
 @app.route('/sign-in')
 def sign_in():
     return render_template('sign-in.html')
+@app.route('/submit')
+def submit():
+    return "Traitement de Données"
 @app.route('/password-recovery')
 def password_recovery():
     return render_template('password-recovery.html')
