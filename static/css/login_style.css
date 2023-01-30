@@ -49,12 +49,20 @@ main
     border: 2px solid rgba(2, 156, 241, 0.24);
     outline: none;
     transition: all .3s ease-in-out;
+    align-items: center;
 }
 .form_container_inputs:hover
 {
     border:2px solid #3e84ff;
     background-color: rgb(199, 232, 243);
     color: black;
+}
+.form_container_MsgError
+{
+    font-family: Courier;
+    font-style:normal;
+    font-size:85% ;
+    color: red;
 }
 .form_container_button
 {

@@ -11,10 +11,11 @@
 <body>
     <main>
         <img class="logo" src="{{url_for('static',filename='img/logo_navabe.png')}}" alt="logo">
-        <form class ="form_container" id="Connexion" action="{{url_for('submit')}}" method="GET">
+        <form id='form_login' class ="form_container" id="Connexion" action="{{url_for('submit')}}" method='get'>
             <p class="form_container_heading">Connexion</p>
-            <input id="email" class="form_container_inputs" type="email" placeholder="Votre identifiant" required>
-            <input id="password" class="form_container_inputs" type="password" placeholder="Votre mot de passe" required>
+            <input id ="email" name="email" class="form_container_inputs" type="email" placeholder="Votre identifiant" required autocomplete="off">
+            <input id="password" name="password" class="form_container_inputs" type="password" placeholder="Votre mot de passe" required autocomplete="off">
+            <p class="form_container_MsgError">{{MsgError}}</p>
             <input type="submit" class="form_container_button" value="Connexion">
             <p>Vous n'avez pas de compte ? <a href="{{url_for('sign_in')}}">Créer un compte !</a></p>
         </form>
