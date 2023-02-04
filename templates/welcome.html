@@ -1,22 +1,42 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr-CA">
+
 <head>
+
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenu sur NaVaBe</title>
-    <link rel="stylesheet" href=" {{ url_for('static',filename = 'css/main_style.css') }} ">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/welcome.css')}}">
+
 </head>
+
 <body>
-    <nav id="navigation-bar">
-        <img src="" alt="" width="50">
-        <ul id="navbar-items">
-            <li id="navbar-item login">
-                <a href=" {{url_for('login')}} "> Se connecter </a>
-            </li>
-            <li id="navbar-item signin">
-                <a href="{{url_for('sign_in')}}"> Créez un compte </a>
-            </li>
-        </ul>
-    </nav>
+    <header class="header_body">
+
+        <nav class="nav_bar">
+
+            <div class =" logo">
+                <img class="logo_in_welcome" src="{{url_for('static', filename = 'img/logo_navabe.png')}}" alt="logo">
+            </div>
+
+            <div class="link_">
+                <li><a class="link_L" href="">À propos </a></li>
+                <li><a class="link_L" href="">Contact  </a></li>
+                <li><a class="link_L" href="">Crédits  </a></li>
+            </div>
+        </nav>
+    </header>
+
+    <div class = " overlay">
+        <div>
+        </div>
+        <div class="link_1">
+            <li><a href="{{url_for('login')}}" class="link_B">Connexion</a></li>
+            <li><a href="{{url_for('sign_in')}}" class="link_B">Inscription</a></li>
+        </div>
+    </div>
+
 </body>
+
 </html>
