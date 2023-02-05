@@ -32,8 +32,9 @@ main
     background-color: rgb(0, 0, 0);
 }
 .form_container_head{
+    padding-top: 32px;
     font-family: Arial;
-    font-size: 45px;
+    font-size: 40px;
 }
 
 .form_container_head2
@@ -111,6 +112,8 @@ main
     color: black;
 }
 .footer_main{
-    padding-top:20px ;
-    padding-bottom: 20px;
+    position: relative;
+    left: 15px;
+    padding-top:0px ;
+    padding-bottom: 50px;
 }

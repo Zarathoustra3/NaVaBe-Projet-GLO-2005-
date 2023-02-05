@@ -104,7 +104,7 @@ header {
 {
     opacity: 1;
 }
-.link_B{
+.link_B {
     text-decoration-line:none;
     color: aliceblue;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -123,4 +123,76 @@ header {
     background-color:rgba(97, 194, 250, 0.39);
 }
 
+.menu {
+    list-style: none;
+}
 
+.menu li {
+    float: left;
+    width: 125%;
+}
+
+.menu li input:link, .menu li input:visited {
+    display: block;
+    color: #FFF;
+    background-color:rgba(8, 40, 99, 0.5);
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+.menu li input:hover {    
+    color: coral;
+    background-color:rgba(97, 194, 250, 0.39);
+}
+.menu li input:active {background-color: #994444;}
+
+.sousmenu {
+    list-style-type: none;
+    display: none;
+    padding-top: 15px;
+    margin: 0;
+    position: absolute;
+    border-radius:20px;
+}
+
+.sousmenu li {
+    display: flex;
+    float: none;
+    margin: 10px;
+    padding: 7px;
+    border: 3px solid transparent;
+    gap: 10px;
+    position: relative;
+    right: 25%;
+   
+}
+
+.sousmenu li input:link, .menu li input:visited {
+    display: block;
+    color: #FFF;
+    text-decoration: none;
+    background-color:rgba(8, 40, 99, 0.5);
+    border-radius: 20px;
+    border: 2px solid aliceblue;
+}
+
+.menu .sousmenu li input:hover {
+    background-color: rgba(97, 194, 250, 0.39);
+    color: coral;
+    border: 2px solid coral;
+}
+
+.menu li:hover .sousmenu {
+    display: block;
+}
+.button_{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: small;
+    font-weight: 600;
+    padding: 10px;
+    border: 2px solid aliceblue;
+    border-radius: 25px;
+    background-color: rgba(0, 0, 0, 0.384);
+    color: aliceblue;
+}

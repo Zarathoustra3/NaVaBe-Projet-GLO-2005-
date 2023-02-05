@@ -6,12 +6,13 @@
     <meta id="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription</title>
     <link rel="stylesheet" href="{{url_for ('static', filename ='css/sign-in.css')}}">
+    <script src="{{url_for('static', filename='script/sign_in.js')}}"></script>
 </head>
 
 <body>
     <main>
 
-        <form id="form_inscription"  class ="form_container" action="" method ="post">
+        <form id="form_inscription"  class ="form_container" action="{{url_for('submit')}}" method ="post">
 
             <div>
                 <p class="form_container_head"> Inscription </p>
@@ -22,10 +23,14 @@
                         <p class="form_container_head2">À propos de vous</p>
 
                         <label for="input_name">{{Msg_nom}}</label>
-                        <input id= "input_name" type="text" class= "form_container_inputs" placeholder="Entrez un nom" required>
+                        <input id= "input_name" type="text" class= "form_container_inputs" placeholder="Entrez votre nom" required>
 
                         <label for="input_year">{{Msg_annee}}</label>
                         <input id="input_year" type="date" class = "form_container_inputs" placeholder="Entrez une date" required>
+
+
+                        <label for="input_NEQ">{{demande_NEQ}}</label>
+                        <input id="input_NEQ" type="text" class = "form_container_inputs" placeholder="Entrez le NEQ de l'entreprise" {{option_}}>
 
                         <label for="input_address">Adresse</label>
                         <input id="input_address" type="text" class = "form_container_inputs" placeholder="Entrez une adresse" required>
@@ -36,8 +41,8 @@
                         <label for="input_zipcode">Code postale</label>
                         <input id="input_zipcode" type="text" class ="form_container_inputs" placeholder="Entrez votre code postal" required>
 
-                        <label for="input_typeProd">Votre production</label>
-                        <input id="input_typeProd" type="text" class ="form_container_inputs" placeholder="Que produisez-vous ? / Quel service offrez-vous ? ..." required>
+                        <label for="input_typeProd">{{demande_prod}}</label>
+                        <input id="input_typeProd" type="text" class ="form_container_inputs" placeholder="Que produisez-vous ? / Quel service offrez-vous ? ..." {{option_}}>
                     </div>
                 </div>
 

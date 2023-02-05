@@ -9,6 +9,7 @@
     <title>Bienvenu sur NaVaBe</title>
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/welcome.css')}}">
 
+
 </head>
 
 <body>
@@ -33,7 +34,18 @@
         </div>
         <div class="link_1">
             <li><a href="{{url_for('login')}}" class="link_B">Connexion</a></li>
-            <li><a href="{{url_for('sign_in')}}" class="link_B">Inscription</a></li>
+            <form action="{{url_for('sign_in')}}" id="type_A" method="post">
+                <ul class="menu">
+                    <li><a href="#" class = "link_B">Inscription</a>
+                      <ul class="sousmenu">
+                        <li><input id="button_Prod" class="button_" type="submit" value = "Pour Producteur"></li>
+                        <li><input id="button_Part" class="button_" type="submit" value = "Pour Particulier"></li>
+                        </ul>
+                    </ul>
+                <input type="hidden" name="type_account" id="type_compte" value =''>
+                <input type="hidden" name="name_page" value="welcome">
+            </form>
+                <script src="{{url_for('static', filename = 'script/set_type_account.js')}}"></script>
         </div>
     </div>
 

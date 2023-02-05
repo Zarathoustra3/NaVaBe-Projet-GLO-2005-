@@ -3,7 +3,7 @@ from static.script.connection_and_registration import  is_client_connectable
 app = Flask(__name__)
 
 @app.route('/')
-@app.route('/welcome',methods = ['POST'])
+@app.route('/welcome',methods = ['POST','GET'])
 def welcome():
     """
      Affiche la page de bienvenue de note site
@@ -21,13 +21,34 @@ def login(msg:str =""):
         msg= request.form.get('msg')
     return render_template('login.html',MsgError=msg)
 
-@app.route('/sign-in')
+@app.route('/sign-in',methods = ['POST','GET'])
 def sign_in():
     """
     Inscription du client de notre site
     :return: sign-in.html
     """
-    return render_template('sign-in.html')
+
+    option = 'disabled'
+    msg_for_name = "Nom et nom de famille"
+    msg_for_date = "Date de naissance"
+    demande_NEQ = ''
+    demande_prod= ''
+
+    submit_page = request.form.get('name_page')
+    if not submit_page is None:
+        if request.form.get('type_account') == 'producteur':
+            msg_for_name = "Nom de l'entreprise"
+            msg_for_date = "Date d'enregistrement au registre du Québec"
+            option = 'enabled required'
+            demande_NEQ = "Numéro d'entreprise du Québec"
+            demande_prod = "Description de votre production"
+
+    return render_template('sign-in.html',
+                           option_ = option,
+                           Msg_nom = msg_for_name,
+                           Msg_annee = msg_for_date,
+                           demande_prod = demande_prod,
+                           demande_NEQ = demande_NEQ)
 
 @app.route('/submit',methods = ['POST'])
 def submit():
@@ -83,4 +104,4 @@ def password_recovery():
     return render_template('password-recovery.html')
 
 if __name__ == '__main__':
-    app.run(debug= True)
+    app.run(debug=True)
