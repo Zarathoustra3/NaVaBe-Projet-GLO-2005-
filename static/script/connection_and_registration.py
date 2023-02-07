@@ -5,6 +5,48 @@ Et aussi l'enregistrement dans la BDD.
 import mysql.connector as connector
 import smtplib as smtp
 from email.message import EmailMessage
+import string
+import secrets
+
+def insert_to_DB(database_name:str, values :dict,
+                 user = 'NaVaBe_Project', password='GLO-2005') -> bool:
+    """
+    Permet d'insérer des valeurs dans la base de données
+
+    :param database_name: Nom de la base de données
+    :param values: dictionnaire des valeurs à insérer
+    :param user: utilisateur (Par défaut NaVaBe_Project)
+    :param password: mot de passe de l'utilisateur
+    :return: confirmation de l'opération
+    """
+def generate_pass(length : int = 12,with_letters : bool = True, with_special_chars: bool = True ) -> str:
+    """
+    Génère un mot de passe de facon aleatoire pour confirmer le mail du client ou
+    pour récupérer un compte.
+
+    :param with_letters: Active les lettres
+    :param with_special_chars: Active les chars spéciaux
+    :param length: Longueur de mot de passe à générer
+    :return: le mot de passe
+    """
+    letters = ''
+    digits = string.digits #chiffres
+    special_chars = ''
+
+    if with_letters:
+        letters = string.ascii_letters
+
+    if with_special_chars:
+        special_chars = string.punctuation
+
+    keyboard_complete = letters + digits + special_chars
+    pwd_length = length
+
+    password = str()
+    for i in range(pwd_length):
+        password += ''.join(secrets.choice(keyboard_complete))
+
+    return password
 
 def is_client_connectable(email : str, password :str) -> bool:
     """
@@ -14,15 +56,15 @@ def is_client_connectable(email : str, password :str) -> bool:
     :param password:
     :return: True si les identifiants sont corrects, False sinon
     """
-    is_client_connectable = False
-    try:
-        connection = connector.connect(host = 'localhost',
-                                       database = 'NaVaBe',
-                                       user = 'root',
-                                       password = 'Clervie2014!') # Mettez ici votre mot de passe à vous
 
+    try:
+        is_client_connectable = False
+        connection = connector.connect(host='localhost',
+                                       database='NaVaBe',
+                                       user='root',
+                                       password='Clervie2014!')
         cursor = connection.cursor()
-        request = "SELECT mot_de_passe FROM clients WHERE identifiant = " +"'" + email + "'"
+        request = "SELECT mot_de_passe FROM {} WHERE email = ".format('clients') +"'" + email + "'"
 
         cursor.execute(request)
         mot_de_passe = cursor.fetchone()
@@ -83,4 +125,5 @@ def send_email(name:str, mail_receiver :str,message:str ='', subject:str='') -> 
 if __name__ == "__main__":
    #print(is_client_connectable('Navabe@root.ca', "Projet-Glo-2005"))
    send_email("Bertrand A", "beawe@ulaval.ca")
+
 
