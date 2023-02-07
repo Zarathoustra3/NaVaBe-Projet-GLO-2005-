@@ -1,7 +1,10 @@
-from flask import Flask, render_template, request, url_for, redirect
-from static.script.connection_and_registration import  is_client_connectable
+from flask import Flask, render_template, request, url_for, redirect,flash
+from static.script.connection_and_registration import  is_client_connectable, generate_pass
+
+Token =''
 app = Flask(__name__)
 
+ #Token de page appellant. Attribué aléatoirement
 @app.route('/')
 @app.route('/welcome',methods = ['POST','GET'])
 def welcome():
@@ -17,9 +20,9 @@ def login(msg:str =""):
     Login du client sur notre site
     :return: sign-in.html
     """
-    if not request.form.get('msg') is None:
-        msg= request.form.get('msg')
-    return render_template('login.html',MsgError=msg)
+    if not request.args.get('msg') is None:
+        msg= request.args.get('msg')
+    return render_template('login.html',MsgError = msg)
 
 @app.route('/sign-in',methods = ['POST','GET'])
 def sign_in():
@@ -71,21 +74,24 @@ def submit():
         """
         Routine de traitement pour la connexion
         """
+        global Token
         email = request.form.get('email')
         password =request.form.get('password')
-
+        Token = generate_pass(10,True)
         if not is_client_connectable(email, password):
             return redirect(url_for('login',msg="Courriel ou Mot de passe invalide"))
+        return redirect(url_for('main', caller="submit", token=Token))
 
     if submit_page == 'sign-in':
         """
         Routine de traitement pour l'enregistrement 
         """
         pass
-    return redirect(url_for('main'))
+    return ' '
 
-@app.route('/main')
-def main():
+
+@app.route('/main', methods = ['POST','GET'])
+def main(caller :str ="", token:str = ''):
     """
     Cette fonction doit permettre à l'utilisateur de naviguer sur NaVaBe, une fois ce dernier connecté.
     La Page html renvoyé est le tableau de bord du site.
@@ -97,7 +103,20 @@ def main():
 
     :return: main.html
     """
-    return render_template('main.html')
+    if not request.args.get('caller') is None:
+        caller = request.args.get('caller')
+        token = request.args.get('token')
+
+        print("|","**"*30,"\n",Token, "|")
+        print(len(Token),"\n")
+        print(len(token),"\n")
+        print("|",token,"\n","**"*30, "|")
+
+        if caller == 'submit':
+            print(caller)
+            if token == Token:
+                return  render_template('main.html', Name_menu = 'Tableau de bord')
+    return "<h1> Vous devez vous authentifié pour accéder à la suite du site </h1>"
 
 @app.route('/password-recovery')
 def password_recovery():

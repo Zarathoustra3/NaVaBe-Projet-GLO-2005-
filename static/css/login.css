@@ -21,8 +21,9 @@ main
 .form_container
 {
     position :relative;
-    height:50%;
-    width:30%;
+    max-height:50%;
+    min-width: 30%;
+    max-width:35%;
     border-radius: 30px;
     border:1px solid rgba(8, 8, 37, 0.92);
     padding: 10px ;
@@ -38,8 +39,8 @@ main
 {
     font-size: 2.2rem;
     font-family: Arial;
-    position: absolute;
-    top: 10px;
+    position: relative;
+    top: -5px;
 }
 
 .form_container_inputs, .form_container_button{
@@ -59,15 +60,16 @@ main
 }
 .form_container_MsgError
 {
-    font-family: Courier;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-style:normal;
-    font-size:85% ;
+    font-weight: 600 ;
     color: red;
+    position: relative;
+    top: 10px;
 }
 .form_container_button
 {
     width: 40%;
-    flex-direction:inherit;
     gap:16px;
     outline: none;
     background-color: rgba(234, 207, 153, 0.43);
@@ -81,5 +83,3 @@ main
 {
     background-color: rgba(225, 128, 73, 0.68);
 }
-
-

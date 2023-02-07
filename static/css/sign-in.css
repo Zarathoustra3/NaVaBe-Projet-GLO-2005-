@@ -19,8 +19,9 @@ main
     font-style: normal;
     font-family: "Arial";
     position :relative;
-    height:85%;
-    width:80%;
+    max-height:85%;
+    min-width: 70%;
+    max-width:90%;
     border-radius: 30px;
     border:1px solid rgba(8, 8, 37, 0.92);
     padding: 25px ;
@@ -28,10 +29,11 @@ main
     justify-content:center;
     align-items: center;
     flex-direction: column;
-    gap: 10px;
     background-color: rgb(0, 0, 0);
 }
 .form_container_head{
+    position: relative;
+    max-height: 5px;
     padding-top: 32px;
     font-family: Arial;
     font-size: 40px;
@@ -116,4 +118,8 @@ main
     left: 15px;
     padding-top:0px ;
     padding-bottom: 50px;
+}
+
+:-moz-user-disabled{
+    padding: 10px;
 }
