@@ -1,0 +1,49 @@
+body {
+    background-color: rgba(238, 187, 134, 0.56);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.form_container {
+    padding: 5% !important;
+    padding-top: 2% !important;
+    margin: 15% !important;
+    width: 50% !important;
+    justify-self: center !important;
+    border-radius: 35px !important;
+    vertical-align: middle !important;
+    color: aliceblue !important;
+    background-color: black !important;
+}
+.myButtons { 
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-left: 25px !important;
+    margin-right: 25px !important;
+}
+
+.ttl_rec {
+    font-size: 25px !important;
+}
+
+.btn-cont .btn-retour {
+    margin-top: 35px !important;
+}
+
+@media (max-width: 767.98px) {
+    .form_container {
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+        margin-top: 50% !important;
+        border-radius: 15px !important;
+
+
+    }
+    .myButtons{
+        flex-direction: column-reverse !important;
+        gap: 25px;
+    }
+} 
+    
