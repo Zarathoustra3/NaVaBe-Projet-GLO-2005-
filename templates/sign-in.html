@@ -5,74 +5,86 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta id="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription</title>
+    <link rel="icon" href="{{url_for('static', filename = 'img/signin.png')}}" type="image/png" sizes="24x24">
     <link rel="stylesheet" href="{{url_for ('static', filename ='css/sign-in.css')}}">
 </head>
 
 <body>
-    <main>
+<main>
 
-        <form id="form_inscription"  class ="form_container" action="{{url_for('submit')}}" method ="post">
+    <form id="form_inscription" class="form_container" action="{{url_for('submit')}}" method="post">
 
-            <div>
-                <p class="form_container_head"> Inscription </p>
-            </div>
-            <div class="Div_main">
-                <div class="Div_1">
-                    <div class="about_you">
-                        <p class="form_container_head2">À propos de vous</p>
+        <div>
+            <p class="form_container_head"> Inscription </p>
+        </div>
+        <div class="Div_main">
+            <div class="Div_1">
+                <div class="about_you">
+                    <p class="form_container_head2">À propos de vous</p>
 
-                        <label for="input_name">{{Msg_nom}}</label>
-                        <input id= "input_name" type="text" class= "form_container_inputs" placeholder="Entrez votre nom" required>
+                    <label for="input_name">{{Msg_nom}}</label>
+                    <input id="input_name" type="text" class="form_container_inputs" placeholder="Entrez votre nom"
+                           required>
 
-                        <label for="input_year">{{Msg_annee}}</label>
-                        <input id="input_year" type="date" class = "form_container_inputs" placeholder="Entrez une date" required>
+                    <label for="input_year">{{Msg_annee}}</label>
+                    <input id="input_year" type="date" class="form_container_inputs" placeholder="Entrez une date"
+                           required>
 
 
-                        <label for="input_NEQ">{{demande_NEQ}}</label>
-                        <input id="input_NEQ" type="text" class = "form_container_inputs" placeholder="Entrez le NEQ de l'entreprise" {{option_}}>
+                    <label for="input_NEQ">{{demande_NEQ}}</label>
+                    <input id="input_NEQ" type="text" class="form_container_inputs"
+                           placeholder="Entrez le NEQ de l'entreprise" {{option_}}>
 
-                        <label for="input_address">Adresse</label>
-                        <input id="input_address" type="text" class = "form_container_inputs" placeholder="Entrez une adresse" required>
+                    <label for="input_address">Adresse</label>
+                    <input id="input_address" type="text" class="form_container_inputs" placeholder="Entrez une adresse"
+                           required>
 
-                        <label for="input_city">Ville</label>
-                        <input id="input_city" type="text" class = "form_container_inputs" placeholder="Entrez le nom de votre ville" required>
+                    <label for="input_city">Ville</label>
+                    <input id="input_city" type="text" class="form_container_inputs"
+                           placeholder="Entrez le nom de votre ville" required>
 
-                        <label for="input_zipcode">Code postale</label>
-                        <input id="input_zipcode" type="text" class ="form_container_inputs" placeholder="Entrez votre code postal" required>
+                    <label for="input_zipcode">Code postale</label>
+                    <input id="input_zipcode" type="text" class="form_container_inputs"
+                           placeholder="Entrez votre code postal" required>
 
-                        <label for="input_typeProd">{{demande_prod}}</label>
-                        <input id="input_typeProd" type="text" class ="form_container_inputs" placeholder="Que produisez-vous ? / Quel service offrez-vous ? ..." {{option_}}>
-                    </div>
-                </div>
-
-                <div class ="Div_2">
-                    <div class="join_you">
-                        <p class="form_container_head2">Comment vous joindre ?</p>
-
-                        <label for="input_email">Courriel</label>
-                        <input id="input_email" type="email" class ="form_container_inputs" placeholder="Entrez votre mail" required>
-
-                        <label for="input_number">Téléphone</label>
-                        <input id="input_number" type="tel" class="form_container_inputs" placeholder="Votre numéro de téléphone" required pattern="^9[0-9]{7}" maxlength="10">
-                    </div>
-
-                    <div class="secure_connection">
-                        <p class="form_container_head2">Sécurisez votre connexion</p>
-
-                        <label for="input_password">Mot de passe</label>
-                        <input id="input_password" type="password" class ="form_container_inputs" placeholder="Créer votre mot de passe" required>
-
-                        <input id="input_password_C" type="password" class ="form_container_inputs" placeholder="Confirmer votre mot de passe" required>
-                    </div>
+                    <label for="input_typeProd">{{demande_prod}}</label>
+                    <input id="input_typeProd" type="text" class="form_container_inputs"
+                           placeholder="Que produisez-vous ? / Quel service offrez-vous ? ..." {{option_}}>
                 </div>
             </div>
 
-            <div class="footer_main">
-                <input type="submit" class="form_container_button" value="Envoyer">
-            </div>
-                <input type="hidden" name="name_page" value="sign-in">
-        </form>
+            <div class="Div_2">
+                <div class="join_you">
+                    <p class="form_container_head2">Comment vous joindre ?</p>
 
-    </main>
+                    <label for="input_email">Courriel</label>
+                    <input id="input_email" type="email" class="form_container_inputs" placeholder="Entrez votre mail"
+                           required>
+
+                    <label for="input_number">Téléphone</label>
+                    <input id="input_number" type="tel" class="form_container_inputs"
+                           placeholder="Votre numéro de téléphone" required pattern="^9[0-9]{7}" maxlength="10">
+                </div>
+
+                <div class="secure_connection">
+                    <p class="form_container_head2">Sécurisez votre connexion</p>
+
+                    <label for="input_password">Mot de passe</label>
+                    <input id="input_password" type="password" class="form_container_inputs"
+                           placeholder="Créer votre mot de passe" required>
+
+                    <input id="input_password_C" type="password" class="form_container_inputs"
+                           placeholder="Confirmer votre mot de passe" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer_main">
+            <input type="submit" class="form_container_button" value="Envoyer">
+        </div>
+        <input type="hidden" name="name_page" value="sign-in">
+    </form>
+
+</main>
 </body>
 </html>     
