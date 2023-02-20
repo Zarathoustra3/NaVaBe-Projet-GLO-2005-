@@ -2,24 +2,29 @@
 Ce fichier contient l'ensemble des fonctions nécessaires pour l'établissement d'une connection au serveur
 Et aussi l'enregistrement dans la BDD.
 """
+from flask import flash
 import mysql.connector as connector
 import smtplib as smtp
 from email.message import EmailMessage
 import string
 import secrets
 
-def insert_to_DB(database_name:str, values :dict,
-                 user = 'NaVaBe_Project', password='GLO-2005') -> bool:
+
+def insert_to_DB(table: str, values: dict,
+                 user='NaVaBe_Project', password='GLO-2005') -> bool:
     """
     Permet d'insérer des valeurs dans la base de données
 
-    :param database_name: Nom de la base de données
+    :param table: Nom de la table dans la base de données
     :param values: dictionnaire des valeurs à insérer
     :param user: utilisateur (Par défaut NaVaBe_Project)
     :param password: mot de passe de l'utilisateur
     :return: confirmation de l'opération
     """
-def generate_pass(length : int = 12,with_letters : bool = True, with_special_chars: bool = True ) -> str:
+    completed_operation = False
+
+
+def generate_pass(length: int = 12, with_letters: bool = True, with_special_chars: bool = True) -> str:
     """
     Génère un mot de passe de facon aleatoire pour confirmer le mail du client ou
     pour récupérer un compte.
@@ -30,7 +35,7 @@ def generate_pass(length : int = 12,with_letters : bool = True, with_special_cha
     :return: le mot de passe
     """
     letters = ''
-    digits = string.digits #chiffres
+    digits = string.digits  # chiffres
     special_chars = ''
 
     if with_letters:
@@ -48,7 +53,8 @@ def generate_pass(length : int = 12,with_letters : bool = True, with_special_cha
 
     return password
 
-def is_client_connectable(email : str, password :str) -> bool:
+
+def is_client_connectable(email: str, password: str) -> bool:
     """
     Vérifie si le client est connectable c.-à-d. Les identifiants fournis sont corrects
     et existe dans la base de données
@@ -56,15 +62,15 @@ def is_client_connectable(email : str, password :str) -> bool:
     :param password:
     :return: True si les identifiants sont corrects, False sinon
     """
-
+    is_client_connectable = False
     try:
-        is_client_connectable = False
         connection = connector.connect(host='localhost',
-                                       database='NaVaBe',
+                                       database='navabe',
                                        user='root',
-                                       password='Clervie2014!')
+                                       password='Clervie2014!',
+                                       auth_plugin='mysql_native_password')
         cursor = connection.cursor()
-        request = "SELECT mot_de_passe FROM {} WHERE email = ".format('clients') +"'" + email + "'"
+        request = "SELECT mot_de_passe FROM clients WHERE email = " + "'" + email + "'"
 
         cursor.execute(request)
         mot_de_passe = cursor.fetchone()
@@ -74,26 +80,34 @@ def is_client_connectable(email : str, password :str) -> bool:
 
             if len(mot_de_passe) > 0:
                 if mot_de_passe == password:
-                    is_client_connectable =True
+                    is_client_connectable = True
 
     except connector.Error as error:
-        pass
-
-    finally:
-        if connection.is_connected():
-            cursor.close()
-            connection.close()
+        flash('Une erreur est survenue ...', 'alert')
 
     return is_client_connectable
 
-def registration():
 
+def registration() -> None:
+    """
+    Pour l'enregistrement dans la BDD de nos entités (Entreprise, Particulier, Produit)
+    Une fois l'enregistrement d'une entreprise ou d'un particulier accompli, un mail de confirmation
+    doit lui être envoyé pour qu'il active son compte.
+    :return:
+    """
     pass
+def recovery(data: dict) -> bool:
+    """
 
-def send_email(name:str, mail_receiver :str,message:str ='', subject:str='') -> None:
+    :param data:
+    :return:
+    """
+
+def send_email(name: str, mail_receiver: str, message: str = '', subject: str = '') -> None:
     """
     Permet d'envoyer des mails aux clients, par défaut la fonction envoie un mail de bienvenu.
-    Les paramètres name et mail sont obligatoires pour le bon fonctionnement de cette fonction
+    Les paramètres name et mail sont obligatoires.
+    Les paramètres message et subject doivent être passés ensemble.
 
     :param name: Nom de la personne
     :param mail_receiver: Courriel de la personne
@@ -105,7 +119,7 @@ def send_email(name:str, mail_receiver :str,message:str ='', subject:str='') -> 
     msg = "Bonjour {} \n\n" \
           "L'équipe du projet NaVaBe vous souhaite la bienvenue dans son réseau.\n" \
           "Dans le but de confirmer votre courriel nous vous demandons de suivre le lien : \n\n{}\n\n\n" \
-          "Cordialement, \nLa NaVaBe Team \n".format(name,"https://localhost:5000/confirm")
+          "Cordialement, \nLa NaVaBe Team \n".format(name, "https://localhost:5000/confirm")
     sujet = "Bienvenu Chez NaVaBe !"
 
     if len(message) > 0 & len(subject) > 0:
@@ -118,12 +132,11 @@ def send_email(name:str, mail_receiver :str,message:str ='', subject:str='') -> 
     message_mail['subject'] = sujet
     message_mail.set_content(msg)
 
-    server = smtp.SMTP_SSL('smtp.gmail.com',465)
+    server = smtp.SMTP_SSL('smtp.gmail.com', 465)
     server.login(navabe_user_mail, 'sortcwnjprpmlmfz')
-    server.sendmail(navabe_user_mail, mail_receiver,message_mail.as_string())
+    server.sendmail(navabe_user_mail, mail_receiver, message_mail.as_string())
+
 
 if __name__ == "__main__":
-   #print(is_client_connectable('Navabe@root.ca', "Projet-Glo-2005"))
-   send_email("Bertrand A", "beawe@ulaval.ca")
-
-
+    # print(is_client_connectable('Navabe@root.ca', "Projet-Glo-2005"))
+    send_email("Bertrand A", "beawe@ulaval.ca")

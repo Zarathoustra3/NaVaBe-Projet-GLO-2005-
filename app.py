@@ -1,12 +1,13 @@
-from flask import Flask, render_template, request, url_for, redirect,flash
-from static.script.connection_and_registration import  is_client_connectable, generate_pass
+from flask import Flask, render_template, request, url_for, redirect, flash
+from static.script.ConnectionUtils import is_client_connectable, generate_pass
 
-Token =''
+Token = ''
 app = Flask(__name__)
 
- #Token de page appellant. Attribué aléatoirement
+
+# Token de page appellant. Attribué aléatoirement
 @app.route('/')
-@app.route('/welcome',methods = ['POST','GET'])
+@app.route('/welcome', methods=['POST', 'GET'])
 def welcome():
     """
      Affiche la page de bienvenue de note site
@@ -14,17 +15,19 @@ def welcome():
     """
     return render_template('welcome.html')
 
-@app.route('/login',methods = ['POST','GET'])
-def login(msg:str =""):
+
+@app.route('/login', methods=['POST', 'GET'])
+def login(msg: str = ""):
     """
     Login du client sur notre site
     :return: sign-in.html
     """
     if not request.args.get('msg') is None:
-        msg= request.args.get('msg')
-    return render_template('login.html',MsgError = msg)
+        msg = request.args.get('msg')
+    return render_template('login.html', MsgError=msg)
 
-@app.route('/sign-in',methods = ['POST','GET'])
+
+@app.route('/sign-in', methods=['POST', 'GET'])
 def sign_in():
     """
     Inscription du client de notre site
@@ -35,7 +38,7 @@ def sign_in():
     msg_for_name = "Nom et nom de famille"
     msg_for_date = "Date de naissance"
     demande_NEQ = ''
-    demande_prod= ''
+    demande_prod = ''
 
     submit_page = request.form.get('name_page')
     if not submit_page is None:
@@ -47,13 +50,14 @@ def sign_in():
             demande_prod = "Description de votre production"
 
     return render_template('sign-in.html',
-                           option_ = option,
-                           Msg_nom = msg_for_name,
-                           Msg_annee = msg_for_date,
-                           demande_prod = demande_prod,
-                           demande_NEQ = demande_NEQ)
+                           option_=option,
+                           Msg_nom=msg_for_name,
+                           Msg_annee=msg_for_date,
+                           demande_prod=demande_prod,
+                           demande_NEQ=demande_NEQ)
 
-@app.route('/submit',methods = ['POST'])
+
+@app.route('/submit', methods=['POST'])
 def submit():
     """
     Vérification des données fournit sur le site lors du login ou/et de l'inscription
@@ -69,17 +73,17 @@ def submit():
 
     """
     submit_page = request.form.get('name_page')
-
+    global Token
     if submit_page == 'login':
         """
         Routine de traitement pour la connexion
         """
-        global Token
         email = request.form.get('email')
-        password =request.form.get('password')
-        Token = generate_pass(10,True)
+        password = request.form.get('password')
+        print(email, password)
+        Token = generate_pass(10, True)
         if not is_client_connectable(email, password):
-            return redirect(url_for('login',msg="Courriel ou Mot de passe invalide"))
+            return redirect(url_for('login', msg="Courriel ou Mot de passe invalide"))
         return redirect(url_for('main', caller="submit", token=Token))
 
     if submit_page == 'sign-in':
@@ -90,8 +94,8 @@ def submit():
     return ' '
 
 
-@app.route('/main', methods = ['POST','GET'])
-def main(caller :str ="", token:str = ''):
+@app.route('/main', methods=['POST', 'GET'])
+def main(caller: str = "", token: str = ''):
     """
     Cette fonction doit permettre à l'utilisateur de naviguer sur NaVaBe, une fois ce dernier connecté.
     La Page html renvoyé est le tableau de bord du site.
@@ -107,20 +111,17 @@ def main(caller :str ="", token:str = ''):
         caller = request.args.get('caller')
         token = request.args.get('token')
 
-        print("|","**"*30,"\n",Token, "|")
-        print(len(Token),"\n")
-        print(len(token),"\n")
-        print("|",token,"\n","**"*30, "|")
-
         if caller == 'submit':
             print(caller)
             if token == Token:
-                return  render_template('main.html', Name_menu = 'Tableau de bord')
+                return render_template('main.html', Name_menu='Tableau de bord')
     return "<h1> Vous devez vous authentifié pour accéder à la suite du site </h1>"
 
-@app.route('/password-recovery')
+
+@app.route('/password_recovery')
 def password_recovery():
     return render_template('password-recovery.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
